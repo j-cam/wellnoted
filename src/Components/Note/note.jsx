@@ -4,8 +4,8 @@ import './note.css';
 class Note extends Component {
     constructor(props) {
         super(props);
-        this.title = "Note Title",
-        this.body = "Note body..."
+        this.title = this.props.title;
+        this.body = this.props.content;
     }
 
     render(props) {
