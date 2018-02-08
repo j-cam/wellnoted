@@ -1,0 +1,10 @@
+.note {
+    border: 1px solid #ccc;
+    max-width: 350px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.note h1 {
+    margin-top: 0;
+}
