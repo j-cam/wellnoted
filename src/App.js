@@ -20,6 +20,9 @@ class App extends Component {
   addNote(note) {
     console.log('Adding a new note' + note);
     const notes = this.state.notes;
+    note.id = `note-${Date.now()}`;
+    note.slug = `note-${notes.length + 1}`;
+    console.log(JSON.stringify(note));
     notes.push(note);
     this.setState({
       notes: notes

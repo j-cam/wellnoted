@@ -2,47 +2,38 @@ import React, {Component} from 'react';
 import './noteForm.css';
 
 class NoteForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            newNoteBody: 'something'
-        }
-        this.createNote = this.createNote.bind(this);
-    }
 
-
-    // updating newNoteBody is what shows the new value in the text input
-    handleChange(e) {
-        this.setState({
-            newNoteBody: e.target.value
-        });
-    }
-
-    createNote(e) {
-        e.preventDefault();
+    createNote(event) {
+        event.preventDefault();
+        console.log(event.target);
         const note = {
-            id: `note-${Date.now()}`,
-            title: `Title for ${this.state.newNoteBody}`,
-            content: this.state.newNoteBody
+            id: null,
+            title: this.title.value,
+            content: this.content.value
         }
+        console.log(JSON.stringify(note));
         this.props.addNote(note);
     }
 
 
     render(props) {
         return (
-            <div className="note-form">
+            <form className="note-form" ref={(input) => this.noteForm = input } onSubmit={this.createNote.bind(this)}>
                <input 
                     type="text" 
-                    className="note-form__input-text" 
+                    className="note-form__title" 
                     placeholder="Add a new note..."
-                    value={ this.state.newNoteBody }
+                    ref={(input) => this.title = input}
 
-                    onChange={ (e) => this.handleChange(e) }
                 />
-               <button className="note-form__bttn"
-                onClick={this.createNote}>Add Note</button> 
-            </div>
+                <input 
+                    type="text" 
+                    className="note-form__content" 
+                    placeholder="Add a new note..."
+                    ref={(input) => this.content = input}
+                />
+               <button className="note-form__bttn">Add Note</button> 
+            </form>
         )
     }
 }
