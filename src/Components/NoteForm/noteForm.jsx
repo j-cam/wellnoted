@@ -13,6 +13,7 @@ class NoteForm extends Component {
             content: this.content.value
         }
         this.props.addNote(note);
+        this.noteForm.reset();
     }
 
 
