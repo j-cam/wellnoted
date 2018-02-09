@@ -4,15 +4,18 @@ import './note.css';
 class Note extends Component {
     constructor(props) {
         super(props);
+        this.id = this.props.id;
         this.title = this.props.title;
-        this.body = this.props.content;
+        this.content = this.props.content;
+        this.removeNote = this.props.removeNote;
     }
 
     render(props) {
         return (
             <div className="note">
+                <button onClick={() => this.removeNote(this.id)}>&times;</button>
                 <h1>{this.title}</h1>
-                <p>{this.body}</p>
+                <p>{this.content}</p>
             </div>
         )
     }
