@@ -8,10 +8,10 @@ class NoteForm extends Component {
         console.log(event.target);
         const note = {
             id: null,
+            slug: null,
             title: this.title.value,
             content: this.content.value
         }
-        console.log(JSON.stringify(note));
         this.props.addNote(note);
     }
 
