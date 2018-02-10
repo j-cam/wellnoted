@@ -8,18 +8,20 @@ import NoteForm from './Components/NoteForm/noteForm';
 
 class App extends Component {
   
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    // Connect to firebase
     this.app = firebase.initializeApp(DB_CONFIG);
     this.database = this.app.database().ref('notes');
+    // App State Methods
     this.addNote = this.addNote.bind(this);
     this.removeNote = this.removeNote.bind(this);
-
+    // App State
     this.state = {
       notes: [],
     }
   }
-
+  // Component Life Cycle Methods
   componentWillMount() {
     const theNotes = this.state.notes;
 
@@ -70,15 +72,17 @@ class App extends Component {
   render() {
     return (
       <div className="app">
+
       {
-        this.state.notes.map((note) => {
+        this.state.notes.map((note, index) => {
           return (
             <Note 
               key={note.id} 
-              id={note.id} 
+              index={index} 
               title={note.title} 
               content={note.content}
-              removeNote={this.removeNote} 
+              removeNote={this.removeNote}
+              notes={this.notes} 
             />
           );
         })

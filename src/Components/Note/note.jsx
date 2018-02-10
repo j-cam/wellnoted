@@ -10,7 +10,7 @@ class Note extends Component {
         this.content = this.props.content;
         this.removeNote = this.props.removeNote;
         this.toggleEditing = this.toggleEditing.bind(this);
-
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             isEditing: false
         }
@@ -22,11 +22,21 @@ class Note extends Component {
         })
         console.log(this.isEditing);
     }
+    handleChange(e, key) {
+        console.log(e.target.title.value);
+    }
 
-    renderEditing() {
+    renderEditing(key) {
         return (
-            <div className="note">
-            <h1>HI I'M EDITING</h1>
+            <div className="note note--edit">
+            <h1>{this.title}</h1>
+            <input 
+                    type="text" 
+                    value={this.title}
+                    placeholder="Enter note title..."
+                    name="title"
+                    onChange={(e) => this.handleChange(e, key)}
+                />
                 <button onClick={() => this.toggleEditing()}>
                     Save
                 </button>
