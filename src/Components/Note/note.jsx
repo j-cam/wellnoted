@@ -9,7 +9,7 @@ class Note extends Component {
         this.title = this.props.title;
         this.content = this.props.content;
         this.removeNote = this.props.removeNote;
-        // this.toggleEditing = this.toggleEditing.bind(this);
+        this.toggleEditing = this.toggleEditing.bind(this);
 
         this.state = {
             isEditing: false
@@ -25,14 +25,20 @@ class Note extends Component {
 
     renderEditing() {
         return (
-            <div className="note" onClick={() => this.toggleEditing.bind(this)}>
+            <div className="note">
             <h1>HI I'M EDITING</h1>
+                <button onClick={() => this.toggleEditing()}>
+                    Save
+                </button>
+                <button onClick={() => this.toggleEditing()}>
+                    Cancel
+                </button>
             </div>
         )
     }
     renderNote() {
         return (
-            <div className="note" onClick={() => this.toggleEditing.bind(this)}>
+            <div className="note" onClick={() => this.toggleEditing()}>
                 <div className="note__body">
                     <button onClick={() => this.removeNote(this.id)}>&times;</button>
                     <h1>
