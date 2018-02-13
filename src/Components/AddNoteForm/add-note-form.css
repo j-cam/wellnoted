@@ -1,13 +1,16 @@
-.note {
-    position: relative;
+.note-form {
+    position: fixed;
+    bottom: 0;
+    right: 0;
     border: 1px solid #ccc;
-    min-width: 250px;
-    max-width: 380px;
-    margin: 15px;
+    max-width: 350px;
+    margin: 0;
+    padding: 40px;
+    background-color: #b4b2b2;
     
 
 }
-.note__header {
+.note-form__header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -17,15 +20,20 @@
     padding: 5px;
     margin-bottom: 5px;
 }
-.note__body {
+.note-form__title,.note-form__content {
+    display: block;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+.note-form__body {
     padding: 20px;
 }
 
-.note h1 {
+.note-form h1 {
     margin-top: 0;
 }
 
-.note__delete {
+.note-form__delete {
     appearance: none;
     border: none;
     color: #666;
