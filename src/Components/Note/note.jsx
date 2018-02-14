@@ -1,6 +1,6 @@
 import React from 'react';
 import './note.css';
-
+import { Link } from 'react-router-dom';
 
 
 class Note extends React.Component {
@@ -9,10 +9,10 @@ class Note extends React.Component {
     }
 
     render(key) {
-        
+
         const details = this.props.details;
         const index = this.props.index;
-
+        const noteId = this.props.index;
         return (
             <div className="note">
                 <div className="note__header">
@@ -20,8 +20,8 @@ class Note extends React.Component {
                     <button className="note__delete" onClick={() => this.props.deleteNote(index)}>&times;</button>
                 </div>
                 <div className="note__body">
-                
-                    <h1>{details.title}</h1>
+
+                    <h1><Link to={`/notes/${noteId}`}>{details.title}</Link></h1>
                     <p>{details.content}</p>
 
                 </div>
