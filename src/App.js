@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { DB_CONFIG } from './Config/config';
 // import firebase from 'firebase/app';
 // import 'firebase/database';
+import NotFound from './Components/NotFound';
 import sampleNotes from './sample-notes';
 import './App.css';
 import Header from './Components/Common/Header/header';
@@ -10,14 +11,14 @@ import AddNoteForm from './Components/AddNoteForm/add-note-form';
 
 
 class App extends Component {
-  
+
   constructor() {
     super();
 
     this.loadSamples = this.loadSamples.bind(this);
     this.addNote = this.addNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
-    
+
     this.state = {
       account: {
         user: "Coolio DeVille",
@@ -56,7 +57,7 @@ class App extends Component {
   };
 
   addNote(note) {
-   
+
     const notes = {...this.state.notes};
     const timestamp = Date.now();
     note.timestamp = timestamp;
@@ -76,10 +77,11 @@ class App extends Component {
     return (
       <div className="app">
         <button className="load-notes" onClick={this.loadSamples}>Load Notes</button>
+
         <Header title={this.state.account.user} />
         <div className="note-list">
           {
-            Object.keys(this.state.notes).map(key => 
+            Object.keys(this.state.notes).map(key =>
                 <Note
                   key={key}
                   index={key}
@@ -96,6 +98,6 @@ class App extends Component {
   }
 
 }
- 
+
 
 export default App;
