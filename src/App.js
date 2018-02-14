@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from 'react-router-dom';
+
 // import { DB_CONFIG } from './Config/config';
 // import firebase from 'firebase/app';
 // import 'firebase/database';
-import NotFound from './Components/NotFound';
-import sampleNotes from './sample-notes';
 import './App.css';
+
+import NotFound from './Components/NotFound';
+import Dashboard from './Components/Dashboard';
+import Notes from './Components/Notes';
+
 import Header from './Components/Common/Header/header';
 import Note from './Components/Note/note';
+import NoteSingle from './Components/NoteSingle/note-single';
 import AddNoteForm from './Components/AddNoteForm/add-note-form';
 
+// Dev Only  Stuff
+import sampleNotes from './sample-notes';
 
 class App extends Component {
 
@@ -46,7 +60,7 @@ class App extends Component {
 
 
   componentWillUpdate(nextProps, nextState) {
-    // console.log(nextState);
+
     localStorage.setItem(`notes-${this.state.account.id}`, JSON.stringify(nextState.notes));
   }
 
@@ -67,32 +81,54 @@ class App extends Component {
   }
   deleteNote(key) {
     const notes = {...this.state.notes};
-    console.log(notes[key]);
+    // console.log(notes[key]);
     delete notes[key];
     this.setState({ notes });
   }
 
 
+
+
   render() {
+
     return (
       <div className="app">
-        <button className="load-notes" onClick={this.loadSamples}>Load Notes</button>
 
-        <Header title={this.state.account.user} />
-        <div className="note-list">
-          {
-            Object.keys(this.state.notes).map(key =>
-                <Note
-                  key={key}
-                  index={key}
-                  notes={this.state.notes}
-                  details={this.state.notes[key]}
-                  deleteNote={this.deleteNote}
-                />
-            )
-          }
-        </div>
-        <AddNoteForm addNote={this.addNote} />
+        <Router>
+        <main>
+        <Switch>
+            <Route exact path="/"
+              render={ (props) => [
+                <Dashboard />
+              ]}
+            />
+
+            <Route exact path="/notes"
+              render={ (props) => [
+                  <Notes deleteNote={this.deleteNote} notes={this.state.notes} />,
+                  <AddNoteForm addNote={this.addNote} />
+              ]}
+            />
+            {/*
+              TODO: NoteSingle needs a key
+              - Look up best practice for one off keys
+              - Can I use noteId somehow ?
+            */}
+            <Route path="/notes/:noteId"
+              render={ (props) => [
+                <NoteSingle notes={this.state.notes} {...props} />
+              ]}
+            />
+
+            <Route path="*"
+              render={ (props) => [
+                <NotFound />
+              ]}
+            />
+
+          </Switch>
+          </main>
+        </Router>
       </div>
     )
   }
