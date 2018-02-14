@@ -2,6 +2,7 @@ import React from 'react';
 import './note.css';
 
 
+
 class Note extends React.Component {
     constructor(){
         super();
