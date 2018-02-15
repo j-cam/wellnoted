@@ -1,0 +1,38 @@
+.note-single {
+  position: relative;
+
+  max-width: 600px;
+  margin: auto;
+
+
+}
+.note-single__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: #b4b2b2;
+  background-color: #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.note-single__body {
+  padding: 20px;
+}
+
+.note-single h1 {
+  margin-top: 0;
+}
+
+.note-single__delete {
+  appearance: none;
+  border: none;
+  color: #666;
+  background: transparent;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.note-single__back::before {
+  content: "\2190";
+}

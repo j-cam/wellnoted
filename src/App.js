@@ -3,10 +3,11 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
+  NavLink,
   Switch,
   Redirect
 } from 'react-router-dom';
-
+import uuid from 'uuid';
 // import { DB_CONFIG } from './Config/config';
 // import firebase from 'firebase/app';
 // import 'firebase/database';
@@ -23,6 +24,7 @@ import AddNoteForm from './Components/AddNoteForm/add-note-form';
 
 // Dev Only  Stuff
 import sampleNotes from './sample-notes';
+import Navigation from './Components/Common/Navigation/navigation';
 
 class App extends Component {
 
@@ -86,27 +88,29 @@ class App extends Component {
     this.setState({ notes });
   }
 
-
-
+  // Note: Console.log arrow function example
+  //  render={ (props) => console.log(props) || [<CompOne/>, <CompTwo/> }
 
   render() {
 
     return (
       <div className="app">
-
         <Router>
         <main>
+        <Navigation />
+        <Header username="Sideshow Bob"/>
         <Switch>
             <Route exact path="/"
               render={ (props) => [
-                <Dashboard />
+                <Dashboard key={uuid()}  />
               ]}
             />
 
             <Route exact path="/notes"
               render={ (props) => [
-                  <Notes deleteNote={this.deleteNote} notes={this.state.notes} />,
-                  <AddNoteForm addNote={this.addNote} />
+                  <Notes key={uuid()}  deleteNote={this.deleteNote} notes={this.state.notes} />,
+                  <AddNoteForm key={uuid()}  addNote={this.addNote} />,
+                  <button key={uuid()} className="load-notes" onClick={this.loadSamples}>Load Sample Notes</button>
               ]}
             />
             {/*
@@ -116,13 +120,13 @@ class App extends Component {
             */}
             <Route path="/notes/:noteId"
               render={ (props) => [
-                <NoteSingle notes={this.state.notes} {...props} />
+                <NoteSingle key={props.match.params.noteId} notes={this.state.notes} {...props} />
               ]}
             />
 
             <Route path="*"
               render={ (props) => [
-                <NotFound />
+                <NotFound key={uuid()} />
               ]}
             />
 
