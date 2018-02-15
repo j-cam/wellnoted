@@ -2,8 +2,9 @@
 module.exports = {
     note1: {
         title: 'Note 1 Title',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean magna odio, malesuada at congue vel, dapibus et justo. Morbi dolor dolor, ultrices quis nunc tincidunt.'
-    },
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean magna odio, malesuada at congue vel, dapibus et justo. Morbi dolor dolor, ultrices quis nunc tincidunt.',
+        timestamp: ""
+      },
     note2: {
         title: 'Note 2 Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean magna odio, malesuada at congue vel, dapibus et justo. Morbi dolor dolor, ultrices quis nunc tincidunt.'
