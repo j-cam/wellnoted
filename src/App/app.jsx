@@ -11,20 +11,20 @@ import uuid from 'uuid';
 // import { DB_CONFIG } from './Config/config';
 // import firebase from 'firebase/app';
 // import 'firebase/database';
-import './App.css';
+import './app.css';
 
-import NotFound from './Components/NotFound';
-import Dashboard from './Components/Dashboard';
-import Notes from './Components/Notes';
+import NotFound from '../Components/NotFound';
+import Dashboard from '../Components/Dashboard';
+import Notes from '../Components/Notes';
 
-import Header from './Components/Common/Header/header';
-import Note from './Components/Note/note';
-import NoteSingle from './Components/NoteSingle/note-single';
-import AddNoteForm from './Components/AddNoteForm/add-note-form';
+import Header from '../Components/Common/Header/header';
+import Note from '../Components/Note/note';
+import NoteSingle from '../Components/NoteSingle/note-single';
+import AddNoteForm from '../Components/AddNoteForm/add-note-form';
 
 // Dev Only  Stuff
-import sampleNotes from './sample-notes';
-import Navigation from './Components/Common/Navigation/navigation';
+import sampleNotes from '../utils/data/sample-notes';
+import Navigation from '../Components/Common/Navigation/navigation';
 
 class App extends Component {
 
