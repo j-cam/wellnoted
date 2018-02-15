@@ -2,6 +2,7 @@ import React from 'react';
 import './note.css';
 import { Link } from 'react-router-dom';
 import { FormattedDate, FormattedTime } from 'react-intl';
+import uuid from 'uuid';
 
 class Note extends React.Component {
     constructor(){
@@ -11,6 +12,7 @@ class Note extends React.Component {
     renderDate(timestamp) {
       return (
         <FormattedDate
+          key={uuid()}
           value={new Date(timestamp)}
           year='numeric'
           month='long'
@@ -21,7 +23,10 @@ class Note extends React.Component {
 
     renderTime(timestamp) {
       return (
-        <FormattedTime value={new Date(timestamp)}/>
+        <FormattedTime
+          key={uuid()}
+          value={new Date(timestamp)}
+        />
       );
     }
 
@@ -37,12 +42,13 @@ class Note extends React.Component {
         return (
             <div className="note">
                 <div className="note__header">
-                    <span>
-                      { creationDate ? [this.renderDate(details.timestamp), " at "] : ''}
-                      { creationDate ? this.renderTime(details.timestamp) : '' }
+                    <span className="note__date">
+                      {
+                        creationDate
+                        ? [this.renderDate(details.timestamp), " at ", this.renderTime(details.timestamp)]
+                        : ''
+                      }
                     </span>
-
-                    <span></span>
                     <button className="note__delete" onClick={() => this.props.deleteNote(index)}>&times;</button>
                 </div>
                 <div className="note__body">
