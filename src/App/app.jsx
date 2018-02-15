@@ -105,6 +105,11 @@ class App extends Component {
                 <Dashboard key={uuid()}  />
               ]}
             />
+            <Route exact path="/dashboard"
+              render={ (props) => [
+                <Dashboard key={uuid()}  />
+              ]}
+            />
 
             <Route exact path="/notes"
               render={ (props) => [

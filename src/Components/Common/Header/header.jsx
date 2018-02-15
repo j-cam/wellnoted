@@ -8,4 +8,4 @@ const Header = (props) => {
         </header>
     );
 }
-export default Header
+export default Header;
