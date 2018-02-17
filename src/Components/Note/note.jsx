@@ -1,6 +1,7 @@
 import React from 'react';
 import './note.css';
 import { Link } from 'react-router-dom';
+import Date from '../Date/date';
 
 
 class Note extends React.Component {
@@ -16,11 +17,7 @@ class Note extends React.Component {
             <div className="note">
                 <div className="note__header">
                     <span className="note__date">
-                      {
-                        creationDate
-                        ? [this.props.formatDate(note.timestamp), " at ", this.props.formatTime(note.timestamp)]
-                        : ''
-                      }
+                      <Date timestamp={note.timestamp} />
                     </span>
                     <button className="note__delete" onClick={() => this.props.deleteNote(id)}>&times;</button>
                 </div>
