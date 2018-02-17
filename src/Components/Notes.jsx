@@ -2,9 +2,7 @@ import React from 'react';
 import Note from './Note/note';
 
 class Notes extends React.Component {
-  constructor() {
-    super();
-  }
+
   render() {
     return (
 
@@ -14,8 +12,8 @@ class Notes extends React.Component {
               <Note
                 key={key}
                 index={key}
-                details={this.props.notes[key]}
-                deleteNote={this.props.deleteNote}
+                note={this.props.notes[key]}
+                {...this.props}
               />
           )
         }
