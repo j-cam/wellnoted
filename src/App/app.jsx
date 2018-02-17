@@ -7,6 +7,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
+import { FormattedDate, FormattedTime } from 'react-intl';
 import uuid from 'uuid';
 // import { DB_CONFIG } from './Config/config';
 // import firebase from 'firebase/app';
@@ -72,6 +73,27 @@ class App extends Component {
     });
   };
 
+  formatDate(timestamp) {
+    return (
+      <FormattedDate
+        key={uuid()}
+        value={new Date(timestamp)}
+        year='numeric'
+        month='long'
+        day='2-digit'
+      />
+    );
+  }
+
+  formatTime(timestamp) {
+    return (
+      <FormattedTime
+        key={uuid()}
+        value={new Date(timestamp)}
+      />
+    );
+  }
+
   addNote(note) {
 
     const notes = {...this.state.notes};
@@ -88,6 +110,30 @@ class App extends Component {
     this.setState({ notes });
   }
 
+
+  activateNoteEdit = (id) => {
+    this.setState({
+      notes: this.state.notes.map(note => {
+        if(note.id === id) {
+          note.editing = true;
+        }
+
+        return note;
+      })
+    });
+  }
+  editNote = (id, task) => {
+    this.setState({
+      notes: this.state.notes.map(note => {
+        if(note.id === id) {
+          note.editing = false;
+          note.task = task;
+        }
+
+        return note;
+      })
+    });
+  }
   // Note: Console.log arrow function example
   //  render={ (props) => console.log(props) || [<CompOne/>, <CompTwo/> }
 
@@ -113,19 +159,22 @@ class App extends Component {
 
             <Route exact path="/notes"
               render={ (props) => [
-                  <Notes key={uuid()}  deleteNote={this.deleteNote} notes={this.state.notes} />,
+                  <Notes key={uuid()}  deleteNote={this.deleteNote} notes={this.state.notes} formatDate={this.formatDate} formatTime={this.formatTime} />,
                   <AddNoteForm key={uuid()}  addNote={this.addNote} />,
                   <button key={uuid()} className="load-notes" onClick={this.loadSamples}>Load Sample Notes</button>
               ]}
             />
-            {/*
-              TODO: NoteSingle needs a key
-              - Look up best practice for one off keys
-              - Can I use noteId somehow ?
-            */}
+
             <Route path="/notes/:noteId"
               render={ (props) => [
-                <NoteSingle key={props.match.params.noteId} notes={this.state.notes} {...props} />
+                <NoteSingle
+                  key={uuid()}
+                  index={props.match.params.noteId}
+                  note={this.state.notes[props.match.params.noteId]}
+                  {...props}
+                  formatDate={this.formatDate}
+                  formatTime={this.formatTime}
+                />
               ]}
             />
 
