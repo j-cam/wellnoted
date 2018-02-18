@@ -9,6 +9,7 @@ class NoteSingle extends React.Component {
 
       const note = this.props.note;
       const id = this.props.index;
+      const wasEdited = note.edited;
 
       return (
           <div className="note-single">
@@ -16,6 +17,17 @@ class NoteSingle extends React.Component {
               <div className="note-single__body">
                   <h1>{note.title}</h1>
                   <MetaDate className="note__date" date={note.timestamp} />
+                    {
+                      wasEdited
+                        ?
+                            <span>&nbsp;<em>
+                              (edited:&nbsp;
+                              <MetaDate className="note__date--edited" date={wasEdited}/>
+                              )
+                            </em>
+                            </span>
+                        : null
+                    }
                   <p>{note.content}</p>
               </div>
               <Link to = {`/note/edit/${id}`} className = "note-single__edit">edit note</Link>

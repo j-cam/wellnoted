@@ -6,10 +6,19 @@ import MetaDate from '../MetaDate/meta-date.js';
 
 class Note extends React.Component {
 
+    renderEdited(wasEdited) {
+      if(wasEdited) {
+        return (
+          <MetaDate className="note__date--edited" date={wasEdited}/>
+        )
+      }
+    }
+
     render() {
 
         const note = this.props.note;
         const id = this.props.index;
+        const wasEdited = note.edited;
 
         return (
             <div key={uuid()} className="note">
@@ -20,7 +29,15 @@ class Note extends React.Component {
                 <div className="note__body">
                     <h1><Link to={`/notes/${id}`}>{note.title}</Link></h1>
                     <p>{note.content}</p>
-
+                    {
+                      wasEdited ?
+                        <small>
+                          <em>
+                            edited: <MetaDate className="note__date--edited" date={wasEdited}/>
+                          </em>
+                        </small>
+                        : null
+                    }
                 </div>
             </div>
         );

@@ -13,19 +13,15 @@ class NoteEdit extends React.Component {
     }
 
     handleChange(event, key){
-      console.log('change is comin');
-      console.log(event.target.value);
-      console.log(event.target.name);
       const note = this.props.notes[this.props.index];
-      const updatedNote = {
-          ...note, [event.target.name]: event.target.value
-      };
+      const updatedNote = {...note, [event.target.name]: event.target.value};
       this.props.updateNote(key, updatedNote);
     }
 
     render() {
 
         const note = this.props.notes[this.props.index];
+        const wasEdited = note.edited;
 
         return (
 
@@ -45,6 +41,14 @@ class NoteEdit extends React.Component {
                         />
                         </h1>
                         <MetaDate className="note__date" date={note.timestamp}/>
+                        { wasEdited ?
+                            <span>&nbsp;<em> (edited:&nbsp;
+                              <MetaDate className="note__date--edited" date={wasEdited}/>
+                              )</em>
+                            </span>
+                            : null
+                        }
+
                         <p>
                         <textarea
                           type="text"

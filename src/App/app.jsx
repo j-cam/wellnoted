@@ -79,6 +79,9 @@ class App extends Component {
 
   updateNote(key, updatedNote) {
     const notes = {...this.state.notes};
+    const timestamp = Date.now();
+    updatedNote.edited = timestamp;
+
     notes[key] = updatedNote;
     this.setState({notes});
   }
