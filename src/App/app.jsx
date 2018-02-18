@@ -17,6 +17,7 @@ import NotFound from '../Components/NotFound';
 import Dashboard from '../Components/Dashboard';
 import Notes from '../Components/Notes';
 import NoteSingle from '../Components/NoteSingle/note-single';
+import NoteEdit from '../Components/NoteEdit/note-edit';
 
 import Header from '../Components/Common/Header/header';
 import AddNoteForm from '../Components/AddNoteForm/add-note-form';
@@ -30,6 +31,7 @@ class App extends Component {
     super();
     this.loadSamples = this.loadSamples.bind(this);
     this.addNote = this.addNote.bind(this);
+    this.updateNote = this.updateNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
 
     this.state = {
@@ -75,6 +77,12 @@ class App extends Component {
     this.setState({ notes });
   }
 
+  updateNote(key, updatedNote) {
+    const notes = {...this.state.notes};
+    notes[key] = updatedNote;
+    this.setState({notes});
+  }
+
   deleteNote(key) {
     const notes = {...this.state.notes};
     // console.log(notes[key]);
@@ -83,30 +91,32 @@ class App extends Component {
   }
 
 
-  activateNoteEdit = (id) => {
-    this.setState({
-      notes: this.state.notes.map(note => {
-        if(note.id === id) {
-          note.editing = true;
-        }
+  // activateNoteEdit = (id) => {
+  //   this.setState({
+  //     notes: this.state.notes.map(note => {
+  //       if(note.id === id) {
+  //         note.editing = true;
+  //       }
 
-        return note;
-      })
-    });
-  }
+  //       return note;
+  //     })
+  //   });
+  // }
 
-  editNote = (id, task) => {
-    this.setState({
-      notes: this.state.notes.map(note => {
-        if(note.id === id) {
-          note.editing = false;
-          note.task = task;
-        }
+  // editNote = (id, task) => {
+  //   this.setState({
+  //     notes: this.state.notes.map(note => {
+  //       if(note.id === id) {
+  //         note.editing = false;
+  //         note.task = task;
+  //       }
 
-        return note;
-      })
-    });
-  }
+  //       return note;
+  //     })
+  //   });
+  // }
+
+
 
   // Note: Console.log arrow function example
   //  render={ (props) => console.log(props) || [<CompOne/>, <CompTwo/> }
@@ -138,6 +148,25 @@ class App extends Component {
                   <button key={uuid()} className="load-notes" onClick={this.loadSamples}>Load Sample Notes</button>
               ]}
             />
+            <Route path = "/note/edit/:noteId"
+            render = {
+              (props) => [<NoteEdit key = {
+                  props.match.params.noteId
+                }
+                index = {
+                  props.match.params.noteId
+                }
+                note = {
+                  this.state.notes[props.match.params.noteId]
+                }
+                notes={this.state.notes}
+                updateNote={this.updateNote}
+                deleteNote={() => false}
+                {
+                  ...props
+                } />]
+            }
+            />
 
             <Route path="/notes/:noteId"
               render={ (props) => [
@@ -146,7 +175,6 @@ class App extends Component {
                   index={props.match.params.noteId}
                   note={this.state.notes[props.match.params.noteId]}
                   {...props}
-
                 />
               ]}
             />
