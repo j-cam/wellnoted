@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App/app';
-import {IntlProvider, FormattedDate} from 'react-intl';
+import {IntlProvider} from 'react-intl';
 import registerServiceWorker from './registerServiceWorker';
 
 
