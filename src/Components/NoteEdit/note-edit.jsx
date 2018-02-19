@@ -3,7 +3,7 @@ import './note-edit.css';
 import {Link} from "react-router-dom";
 import Note from '../Note/note';
 import MetaDate from '../MetaDate/meta-date';
-import uuid from 'uuid';
+
 
 class NoteEdit extends React.Component {
     constructor() {

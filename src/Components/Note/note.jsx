@@ -24,7 +24,7 @@ class Note extends React.Component {
             <div key={uuid()} className="note">
                 <div className="note__header">
                   <MetaDate className="note__date" date={note.timestamp} />
-                <button className="note__delete" onClick={() => this.props.deleteNote(id)}>&times;</button>
+                <button className="note__delete" onClick={(e) => this.props.deleteNote(id)}>&times;</button>
                 </div>
                 <div className="note__body">
                     <h1><Link to={`/notes/${id}`}>{note.title}</Link></h1>
