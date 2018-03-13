@@ -130,11 +130,10 @@ class App extends Component {
   }
 
   deleteNote(key) {
-    // const notes = { ...this.state.notes };
-    console.log(notes[key]);
-    // delete notes[key];
-    // this.setState({ notes });
-    // this.database.child(key).remove();
+    const notes = { ...this.state.notes };
+    notes[key] = null;
+
+    this.setState({ notes });
   }
 
 
