@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './app.css';
+import base from '../Config/config';
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
 import uuid from 'uuid';
-// import { DB_CONFIG } from './Config/config';
-// import firebase from 'firebase/app';
-// import 'firebase/database';
+
 import Navigation from '../Components/Common/Navigation/navigation';
 import NotFound from '../Components/NotFound';
 import Dashboard from '../Components/Dashboard';
@@ -28,7 +27,10 @@ class App extends Component {
     this.addNote = this.addNote.bind(this);
     this.updateNote = this.updateNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
-
+    // ========== LIVE STORAGE
+    // this.app = firebase.initializeApp(DB_CONFIG);
+    // this.database = this.app.database().ref('007/notes');
+    // ========== LIVE STORAGE
     this.state = {
       account: {
         user: "Coolio DeVille",
@@ -39,28 +41,70 @@ class App extends Component {
   }
 
   componentWillMount() {
+    // this.database.on('value', (snapshot) => {
+    //   console.log(snapshot.val());
+    // });
+    // ========== LOCAL STORAGE TESTING
     // check if there is any order in localStorage
-    const localStorageRef = localStorage.getItem(`notes-${this.state.account.id}`);
+    // const localStorageRef = localStorage.getItem(`notes-${this.state.account.id}`);
+    // if (localStorageRef) {
+    //   // update our App component's state
+    //   this.setState({
+    //     notes: JSON.parse(localStorageRef)
+    //   });
+    // }
+    // else {
+    //   localStorage.setItem(`notes-${this.state.account.id}`, {});
+    // }
+    // ========== LOCAL STORAGE TESTING
 
-    if (localStorageRef) {
-      // update our App component's state
-      this.setState({
-        notes: JSON.parse(localStorageRef)
-      });
-    }
-    else {
-      localStorage.setItem(`notes-${this.state.account.id}`, {});
-    }
+    // ========== LIVE STORAGE
+
+    // const previousNotes = this.state.notes;
+    // DataSnapshot
+    // this.database.on('child_added', snap => {
+    //   previousNotes.push({
+    //     id: snap.key,
+    //     noteContent: snap.val().noteContent,
+    //   })
+    // })
+
+    // this.database.on('child_removed', snap => {
+    //   for(var i=0; i < previousNotes.length; i++){
+    //     if(previousNotes[i].id === snap.key){
+    //       previousNotes.splice(i, 1);
+    //     }
+    //   }
+    // })
+    // ========== LIVE STORAGE
+    // this.setState({
+    //   notes: previousNotes
+    // })
+  }
+  componentDidMount(){
+    this.ref = base.syncState(`${this.state.account.id}/notes`,{
+      context: this,
+      state:'notes'
+    });
+  }
+  componentWillUnmount(){
+    // Prvent memory leaking
+    base.removeBinding(this.ref);
   }
 
   componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem(`notes-${this.state.account.id}`, JSON.stringify(nextState.notes));
+    // ========== LOCAL STORAGE TESTING
+    // localStorage.setItem(`notes-${this.state.account.id}`, JSON.stringify(nextState.notes));
+    // ========== LOCAL STORAGE TESTING
+
+
   }
 
   loadSamples() {
     this.setState({
       notes: sampleNotes
     });
+
   };
 
   addNote(note) {
@@ -68,6 +112,11 @@ class App extends Component {
     const timestamp = Date.now();
     note.timestamp = timestamp;
     notes[`note${timestamp}`] = note;
+    // ========== LOCAL STORAGE TESTING
+
+    // ========== LIVE STORAGE
+    // this.base.push().set({ noteContent: note});
+    // ========== LIVE STORAGE
     this.setState({ notes });
   }
 
@@ -81,10 +130,11 @@ class App extends Component {
   }
 
   deleteNote(key) {
-    const notes = { ...this.state.notes };
-    // console.log(notes[key]);
-    delete notes[key];
-    this.setState({ notes });
+    // const notes = { ...this.state.notes };
+    console.log(notes[key]);
+    // delete notes[key];
+    // this.setState({ notes });
+    // this.database.child(key).remove();
   }
 
 
