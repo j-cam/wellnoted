@@ -111,6 +111,7 @@ class App extends Component {
     const notes = { ...this.state.notes };
     const timestamp = Date.now();
     note.timestamp = timestamp;
+    note.edited = false;
     notes[`note${timestamp}`] = note;
     // ========== LOCAL STORAGE TESTING
 
@@ -203,7 +204,7 @@ class App extends Component {
                     ]
                   }
               />
-              <Route path="/note/edit/:noteId"
+              <Route path="/notes/edit/:noteId"
                   render={
                     (props) => [
                       <NoteEdit

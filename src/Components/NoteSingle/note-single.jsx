@@ -30,7 +30,7 @@ class NoteSingle extends React.Component {
                     }
                   <p>{note.content}</p>
               </div>
-              <Link to = {`/note/edit/${id}`} className = "note-single__edit">edit note</Link>
+              <Link to = {`/notes/edit/${id}`} className = "note-single__edit">edit note</Link>
           </div>
       );
     }
